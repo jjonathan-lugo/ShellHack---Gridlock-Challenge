@@ -37,10 +37,44 @@ don't get coordinated, wasting money and delaying grid buildout.
 - 6 of the pairwise combinations in our dataset overlap under the 25 mi threshold;
   the rest were correctly excluded.
 
-## What's next (roadmap, not yet built)
-- Autonomous re-computation when new project data lands (backend already supports
-  this — `/overlaps` recomputes live rather than reading a static export).
-- An AI agent that drafts the coordination recommendation in plain English, with a
-  guard against hallucinated figures, but leaves the final call to human planners.
-- Weather-risk overlay on build windows.
-- A 3D/"electricity" visual treatment as a stretch upgrade to the current 2D map.
+## Add-ons (all built and working)
+- **AI coordination agent** (Hugging Face): drafts a plain-English recommendation
+  per overlap, with a hallucination guard that checks its distance figure against
+  the raw record and falls back to a deterministic template. Recommends; planners decide.
+- **Semantic matching** (Hugging Face sentence-transformers): confidence score per
+  overlap, plus "near-misses" that read as related but weren't geographically flagged.
+- **Weather-risk on build windows**: 10 years of daily history (Open-Meteo / ERA5)
+  at every project → expected weather-lost work days per month (heavy rain, extreme
+  heat, high wind, thunderstorms), the high-risk months in each build window, and
+  the best 3-month stretch for joint field work.
+  - Example worth showing: **Jasper–Okatie 230 kV #2 (DESC)** and **McIntosh–Purrysburg
+    230 kV reactors (Georgia Power)** have build windows that overlap Jul–Dec 2025,
+    so both crews are in the field at once; the panel shows which of those shared
+    months carry the most weather risk and suggests the safer stretch.
+- **3D "holographic electricity" view** (deck.gl): glowing columns per project
+  (taller = more overlaps), energy arcs between overlapping pairs colored by tier,
+  animated current pulses, and weather-risk rings.
+- **Automatic ingest + autonomous re-computation**: parses both utility PDFs
+  (44 DESC projects, 138 Georgia Power projects from the 668-page IRP), geocodes
+  every named substation against OpenStreetMap the way Sperry's guide describes,
+  flags low-confidence matches, and recomputes overlaps. A watcher rebuilds
+  everything when the spreadsheet or PDFs change.
+  - **Validation:** handed the spreadsheet's own coordinates, the pipeline
+    reproduces all 6 of its overlaps from nothing but the PDFs.
+  - **It finds more than the hand-built sheet:** with those same coordinates it
+    surfaces 21 overlaps, not 6, because the PDFs contain sibling projects the
+    sheet skipped (e.g. Georgia Power's separate Evans Primary – Thurmond Dam **#6**
+    rebuild next to the #5 one).
+  - **It catches data-entry errors:** the sheet places the McIntosh substation at
+    two different points 0.41 mi apart (GPC_2 vs GPC_3); the pipeline reports it.
+  - **Live on real OpenStreetMap data:** 172 of 182 projects located, all 6 of the
+    sheet's overlaps recovered (median point error 0.0 mi), 74 candidate overlaps.
+    Most are low confidence because PDF project names are messy — pitch it as
+    "finds candidates for a human to confirm," not "replaces the spreadsheet."
+
+## What's next
+- Pull start dates from Georgia Power's per-project detail pages so build windows
+  use real construction starts instead of the 12-month planning assumption.
+- Line-route geometry (OSM `power=line`) so distance can be closest-point between
+  routes, not just center-to-center.
+- Swap the illustrative cost assumptions for real utility unit costs.

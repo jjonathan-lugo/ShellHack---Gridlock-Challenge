@@ -47,6 +47,11 @@ header .subtitle {
   font-size: 13px;
 }
 
+header {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
 header .legend {
   margin-left: auto;
   display: flex;
@@ -68,10 +73,161 @@ header .legend {
   display: inline-block;
 }
 
+#map-area {
+  position: relative;
+  min-height: 0;
+}
+
 #map {
   height: 100%;
   background: #0a0d12;
 }
+
+#holo {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #0b1a2e 0%, #05080d 70%);
+  overflow: hidden;
+}
+
+#holo[hidden] { display: none; }
+
+.holo-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  font-size: 11px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+/* ---- header view controls ---- */
+.view-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input { accent-color: var(--accent); cursor: pointer; }
+
+.toggle-btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: #79c0ff;
+  background: #0d1a2b;
+  border: 1px solid #1f6feb;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(56, 139, 253, 0.35);
+}
+
+.toggle-btn:hover { background: #12243b; }
+.toggle-btn.on { color: #0d1117; background: #79c0ff; }
+.toggle-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* ---- weather risk ---- */
+.risk-legend {
+  position: absolute;
+  left: 12px;
+  bottom: 24px;
+  z-index: 1000;
+  background: rgba(22, 27, 34, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.risk-legend[hidden] { display: none; }
+.risk-legend b { color: var(--text); font-weight: 600; }
+.risk-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+.risk-low { background: #1b3a24; color: #56d364; }
+.risk-moderate { background: #3d2e0f; color: #e3b341; }
+.risk-high { background: #4a1c1c; color: #ff7b72; }
+.risk-legend i.risk-low { background: #3fb950; }
+.risk-legend i.risk-moderate { background: #d29922; }
+.risk-legend i.risk-high { background: #f85149; }
+
+#weather-risk {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+#weather-risk h2 { margin-bottom: 8px; }
+
+.wx-side + .wx-side {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.wx-title { font-weight: 600; font-size: 12px; line-height: 1.4; }
+.wx-meta { color: var(--text-dim); font-size: 11px; margin-top: 3px; line-height: 1.45; }
+.wx-meta b { color: var(--text); font-weight: 600; }
+
+.risk-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 6px;
+  border-radius: 3px;
+  margin-left: 4px;
+}
+
+.wx-strip {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.wx-cell {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 0;
+  border-radius: 2px;
+  cursor: default;
+}
+
+.wx-summary {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wx-status { color: var(--text-dim); font-size: 12px; }
+.wx-status code { color: var(--text); font-size: 11px; }
 
 #panel {
   border-left: 1px solid var(--border);
@@ -188,4 +344,44 @@ header .legend {
 
 .overlap-line {
   stroke-dasharray: 6 5;
+}
+
+/* ---- dataset switch / auto ingest ---- */
+.toggle select {
+  font: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+#dataset-switch[hidden] { display: none; }
+
+.dataset-note {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin: -4px 0 10px;
+}
+
+.dataset-note:empty { display: none; }
+
+.conf-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin: 6px 0 0 4px;
+  font-weight: 600;
+  background: #3d2e0f;
+  color: #e3b341;
+}
+
+.empty-state {
+  font-size: 12px;
+  color: var(--text-dim);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 12px;
 }

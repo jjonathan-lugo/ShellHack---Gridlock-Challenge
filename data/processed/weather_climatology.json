@@ -1,0 +1,522 @@
+{
+ "generated_at": "2026-09-27T09:44:29Z",
+ "source": "Open-Meteo historical archive (ERA5), https://open-meteo.com",
+ "period": {
+  "start": "2015-01-01",
+  "end": "2024-12-31"
+ },
+ "thresholds": {
+  "heavy_rain_mm": 25.0,
+  "heat_c": 35.0,
+  "wind_gust_kmh": 55.0,
+  "storm_code_min": 95
+ },
+ "projects": {
+  "DESC_1": {
+   "lat": 33.5,
+   "lon": -82.0,
+   "monthly": [
+    {
+     "month": 1,
+     "days": 31.0,
+     "heavy_rain_days": 1.2,
+     "heat_days": 0.0,
+     "wind_days": 2.6,
+     "storm_days": 0.0,
+     "bad_days": 3.4,
+     "bad_share": 0.11
+    },
+    {
+     "month": 2,
+     "days": 28.3,
+     "heavy_rain_days": 0.7,
+     "heat_days": 0.0,
+     "wind_days": 2.9,
+     "storm_days": 0.0,
+     "bad_days": 3.3,
+     "bad_share": 0.117
+    },
+    {
+     "month": 3,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 2.8,
+     "storm_days": 0.0,
+     "bad_days": 3.2,
+     "bad_share": 0.103
+    },
+    {
+     "month": 4,
+     "days": 30.0,
+     "heavy_rain_days": 1.3,
+     "heat_days": 0.0,
+     "wind_days": 3.3,
+     "storm_days": 0.0,
+     "bad_days": 3.8,
+     "bad_share": 0.127
+    },
+    {
+     "month": 5,
+     "days": 31.0,
+     "heavy_rain_days": 0.7,
+     "heat_days": 1.2,
+     "wind_days": 1.2,
+     "storm_days": 0.0,
+     "bad_days": 3.1,
+     "bad_share": 0.1
+    },
+    {
+     "month": 6,
+     "days": 30.0,
+     "heavy_rain_days": 0.5,
+     "heat_days": 5.3,
+     "wind_days": 0.3,
+     "storm_days": 0.0,
+     "bad_days": 6.0,
+     "bad_share": 0.2
+    },
+    {
+     "month": 7,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 8.0,
+     "wind_days": 0.2,
+     "storm_days": 0.0,
+     "bad_days": 8.6,
+     "bad_share": 0.277
+    },
+    {
+     "month": 8,
+     "days": 31.0,
+     "heavy_rain_days": 0.3,
+     "heat_days": 3.7,
+     "wind_days": 0.6,
+     "storm_days": 0.0,
+     "bad_days": 4.2,
+     "bad_share": 0.135
+    },
+    {
+     "month": 9,
+     "days": 30.0,
+     "heavy_rain_days": 0.8,
+     "heat_days": 1.8,
+     "wind_days": 1.3,
+     "storm_days": 0.0,
+     "bad_days": 3.4,
+     "bad_share": 0.113
+    },
+    {
+     "month": 10,
+     "days": 31.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.2,
+     "wind_days": 1.2,
+     "storm_days": 0.0,
+     "bad_days": 1.9,
+     "bad_share": 0.061
+    },
+    {
+     "month": 11,
+     "days": 30.0,
+     "heavy_rain_days": 0.5,
+     "heat_days": 0.0,
+     "wind_days": 1.4,
+     "storm_days": 0.0,
+     "bad_days": 1.7,
+     "bad_share": 0.057
+    },
+    {
+     "month": 12,
+     "days": 31.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.0,
+     "wind_days": 2.2,
+     "storm_days": 0.0,
+     "bad_days": 2.9,
+     "bad_share": 0.094
+    }
+   ]
+  },
+  "DESC_2": {
+   "lat": 33.75,
+   "lon": -82.25,
+   "monthly": [
+    {
+     "month": 1,
+     "days": 31.0,
+     "heavy_rain_days": 1.1,
+     "heat_days": 0.0,
+     "wind_days": 3.7,
+     "storm_days": 0.0,
+     "bad_days": 4.2,
+     "bad_share": 0.135
+    },
+    {
+     "month": 2,
+     "days": 28.3,
+     "heavy_rain_days": 0.5,
+     "heat_days": 0.0,
+     "wind_days": 3.7,
+     "storm_days": 0.0,
+     "bad_days": 3.9,
+     "bad_share": 0.138
+    },
+    {
+     "month": 3,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 4.1,
+     "storm_days": 0.0,
+     "bad_days": 4.5,
+     "bad_share": 0.145
+    },
+    {
+     "month": 4,
+     "days": 30.0,
+     "heavy_rain_days": 1.3,
+     "heat_days": 0.0,
+     "wind_days": 4.4,
+     "storm_days": 0.0,
+     "bad_days": 5.1,
+     "bad_share": 0.17
+    },
+    {
+     "month": 5,
+     "days": 31.0,
+     "heavy_rain_days": 0.8,
+     "heat_days": 0.5,
+     "wind_days": 1.6,
+     "storm_days": 0.0,
+     "bad_days": 2.9,
+     "bad_share": 0.094
+    },
+    {
+     "month": 6,
+     "days": 30.0,
+     "heavy_rain_days": 0.2,
+     "heat_days": 3.2,
+     "wind_days": 0.7,
+     "storm_days": 0.0,
+     "bad_days": 4.0,
+     "bad_share": 0.133
+    },
+    {
+     "month": 7,
+     "days": 31.0,
+     "heavy_rain_days": 0.3,
+     "heat_days": 6.4,
+     "wind_days": 0.2,
+     "storm_days": 0.0,
+     "bad_days": 6.9,
+     "bad_share": 0.223
+    },
+    {
+     "month": 8,
+     "days": 31.0,
+     "heavy_rain_days": 0.5,
+     "heat_days": 2.4,
+     "wind_days": 0.5,
+     "storm_days": 0.0,
+     "bad_days": 3.3,
+     "bad_share": 0.106
+    },
+    {
+     "month": 9,
+     "days": 30.0,
+     "heavy_rain_days": 0.8,
+     "heat_days": 0.3,
+     "wind_days": 1.2,
+     "storm_days": 0.0,
+     "bad_days": 1.9,
+     "bad_share": 0.063
+    },
+    {
+     "month": 10,
+     "days": 31.0,
+     "heavy_rain_days": 0.9,
+     "heat_days": 0.1,
+     "wind_days": 1.2,
+     "storm_days": 0.0,
+     "bad_days": 1.7,
+     "bad_share": 0.055
+    },
+    {
+     "month": 11,
+     "days": 30.0,
+     "heavy_rain_days": 0.5,
+     "heat_days": 0.0,
+     "wind_days": 2.0,
+     "storm_days": 0.0,
+     "bad_days": 2.4,
+     "bad_share": 0.08
+    },
+    {
+     "month": 12,
+     "days": 31.0,
+     "heavy_rain_days": 1.9,
+     "heat_days": 0.0,
+     "wind_days": 3.1,
+     "storm_days": 0.0,
+     "bad_days": 4.0,
+     "bad_share": 0.129
+    }
+   ]
+  },
+  "DESC_3": {
+   "lat": 32.25,
+   "lon": -81.0,
+   "monthly": [
+    {
+     "month": 1,
+     "days": 31.0,
+     "heavy_rain_days": 0.7,
+     "heat_days": 0.0,
+     "wind_days": 3.2,
+     "storm_days": 0.0,
+     "bad_days": 3.4,
+     "bad_share": 0.11
+    },
+    {
+     "month": 2,
+     "days": 28.3,
+     "heavy_rain_days": 0.4,
+     "heat_days": 0.0,
+     "wind_days": 4.0,
+     "storm_days": 0.0,
+     "bad_days": 4.1,
+     "bad_share": 0.145
+    },
+    {
+     "month": 3,
+     "days": 31.0,
+     "heavy_rain_days": 0.4,
+     "heat_days": 0.0,
+     "wind_days": 3.4,
+     "storm_days": 0.0,
+     "bad_days": 3.6,
+     "bad_share": 0.116
+    },
+    {
+     "month": 4,
+     "days": 30.0,
+     "heavy_rain_days": 0.9,
+     "heat_days": 0.0,
+     "wind_days": 4.2,
+     "storm_days": 0.0,
+     "bad_days": 4.5,
+     "bad_share": 0.15
+    },
+    {
+     "month": 5,
+     "days": 31.0,
+     "heavy_rain_days": 1.1,
+     "heat_days": 0.9,
+     "wind_days": 2.2,
+     "storm_days": 0.0,
+     "bad_days": 3.6,
+     "bad_share": 0.116
+    },
+    {
+     "month": 6,
+     "days": 30.0,
+     "heavy_rain_days": 1.4,
+     "heat_days": 2.8,
+     "wind_days": 0.4,
+     "storm_days": 0.0,
+     "bad_days": 4.5,
+     "bad_share": 0.15
+    },
+    {
+     "month": 7,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 4.2,
+     "wind_days": 0.3,
+     "storm_days": 0.0,
+     "bad_days": 5.0,
+     "bad_share": 0.161
+    },
+    {
+     "month": 8,
+     "days": 31.0,
+     "heavy_rain_days": 1.1,
+     "heat_days": 1.2,
+     "wind_days": 0.9,
+     "storm_days": 0.0,
+     "bad_days": 2.9,
+     "bad_share": 0.094
+    },
+    {
+     "month": 9,
+     "days": 30.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.5,
+     "wind_days": 1.3,
+     "storm_days": 0.0,
+     "bad_days": 2.2,
+     "bad_share": 0.073
+    },
+    {
+     "month": 10,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 2.0,
+     "storm_days": 0.0,
+     "bad_days": 2.2,
+     "bad_share": 0.071
+    },
+    {
+     "month": 11,
+     "days": 30.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 1.3,
+     "storm_days": 0.0,
+     "bad_days": 1.6,
+     "bad_share": 0.053
+    },
+    {
+     "month": 12,
+     "days": 31.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.0,
+     "wind_days": 2.1,
+     "storm_days": 0.0,
+     "bad_days": 2.6,
+     "bad_share": 0.084
+    }
+   ]
+  },
+  "DESC_5": {
+   "lat": 32.25,
+   "lon": -81.0,
+   "monthly": [
+    {
+     "month": 1,
+     "days": 31.0,
+     "heavy_rain_days": 0.7,
+     "heat_days": 0.0,
+     "wind_days": 3.2,
+     "storm_days": 0.0,
+     "bad_days": 3.4,
+     "bad_share": 0.11
+    },
+    {
+     "month": 2,
+     "days": 28.3,
+     "heavy_rain_days": 0.4,
+     "heat_days": 0.0,
+     "wind_days": 4.0,
+     "storm_days": 0.0,
+     "bad_days": 4.1,
+     "bad_share": 0.145
+    },
+    {
+     "month": 3,
+     "days": 31.0,
+     "heavy_rain_days": 0.4,
+     "heat_days": 0.0,
+     "wind_days": 3.4,
+     "storm_days": 0.0,
+     "bad_days": 3.6,
+     "bad_share": 0.116
+    },
+    {
+     "month": 4,
+     "days": 30.0,
+     "heavy_rain_days": 0.9,
+     "heat_days": 0.0,
+     "wind_days": 4.2,
+     "storm_days": 0.0,
+     "bad_days": 4.5,
+     "bad_share": 0.15
+    },
+    {
+     "month": 5,
+     "days": 31.0,
+     "heavy_rain_days": 1.1,
+     "heat_days": 0.9,
+     "wind_days": 2.2,
+     "storm_days": 0.0,
+     "bad_days": 3.6,
+     "bad_share": 0.116
+    },
+    {
+     "month": 6,
+     "days": 30.0,
+     "heavy_rain_days": 1.4,
+     "heat_days": 2.8,
+     "wind_days": 0.4,
+     "storm_days": 0.0,
+     "bad_days": 4.5,
+     "bad_share": 0.15
+    },
+    {
+     "month": 7,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 4.2,
+     "wind_days": 0.3,
+     "storm_days": 0.0,
+     "bad_days": 5.0,
+     "bad_share": 0.161
+    },
+    {
+     "month": 8,
+     "days": 31.0,
+     "heavy_rain_days": 1.1,
+     "heat_days": 1.2,
+     "wind_days": 0.9,
+     "storm_days": 0.0,
+     "bad_days": 2.9,
+     "bad_share": 0.094
+    },
+    {
+     "month": 9,
+     "days": 30.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.5,
+     "wind_days": 1.3,
+     "storm_days": 0.0,
+     "bad_days": 2.2,
+     "bad_share": 0.073
+    },
+    {
+     "month": 10,
+     "days": 31.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 2.0,
+     "storm_days": 0.0,
+     "bad_days": 2.2,
+     "bad_share": 0.071
+    },
+    {
+     "month": 11,
+     "days": 30.0,
+     "heavy_rain_days": 0.6,
+     "heat_days": 0.0,
+     "wind_days": 1.3,
+     "storm_days": 0.0,
+     "bad_days": 1.6,
+     "bad_share": 0.053
+    },
+    {
+     "month": 12,
+     "days": 31.0,
+     "heavy_rain_days": 1.0,
+     "heat_days": 0.0,
+     "wind_days": 2.1,
+     "storm_days": 0.0,
+     "bad_days": 2.6,
+     "bad_share": 0.084
+    }
+   ]
+  }
+ },
+ "grid_deg": 0.25,
+ "complete": false
+}

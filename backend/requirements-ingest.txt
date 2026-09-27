@@ -1,0 +1,4 @@
+# Optional — only needed for the PDF ingest pipeline (python3 -m backend.ingest.pipeline).
+# Both are pure Python (no compiled deps, no GPU packages), so this installs in seconds.
+pdfplumber>=0.11   # clean text extraction from the two utility PDFs
+pypdf>=4.0         # fast page scan to find Georgia Power's project table in the 668-page IRP

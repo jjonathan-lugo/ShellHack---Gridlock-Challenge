@@ -1,5 +1,10 @@
 __pycache__/
 *.pyc
+.pytest_cache/
 node_modules/
+dist/
 .venv/
+.env
 .DS_Store
+
+data/cache/

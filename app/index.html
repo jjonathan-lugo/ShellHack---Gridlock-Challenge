@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gridlock — Utility Coordination Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet and deck.gl are vendored locally (app/vendor/) rather than loaded
+       from a CDN, so the demo still works on conference wifi or fully offline. -->
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,16 +19,43 @@
         <span class="legend-item"><span class="legend-dot" style="background:#e8590c"></span>Georgia Power</span>
         <span class="legend-item"><span class="legend-dot" style="background:#f2c744"></span>Flagged overlap (&lt;25 mi)</span>
       </div>
+      <div class="view-controls">
+        <label id="dataset-switch" class="toggle" hidden title="Hand-geocoded spreadsheet, or the dataset extracted automatically from the utility PDFs">
+          Data
+          <select>
+            <option value="curated">Curated spreadsheet</option>
+            <option value="auto">Auto from PDFs</option>
+          </select>
+        </label>
+        <label class="toggle" title="Color each project by weather risk across its build window">
+          <input type="checkbox" id="chk-weather" /> Weather risk
+        </label>
+        <button id="btn-3d" class="toggle-btn" title="Switch to the 3D holographic view">3D holographic</button>
+      </div>
     </header>
-    <div id="map"></div>
+    <div id="map-area">
+      <div id="map"></div>
+      <div id="holo" hidden><div class="holo-hint">Drag to pan · right-drag or ctrl-drag to tilt/rotate · scroll to zoom</div></div>
+      <div id="risk-legend" class="risk-legend" hidden>
+        <b>Build-window weather risk</b>
+        <span><i class="risk-low"></i>low &lt;15% days lost</span>
+        <span><i class="risk-moderate"></i>moderate 15–30%</span>
+        <span><i class="risk-high"></i>high ≥30%</span>
+      </div>
+    </div>
     <div id="panel">
       <h2>Top Coordination Opportunities</h2>
+      <div id="dataset-note" class="dataset-note"></div>
       <div id="overlap-list"></div>
       <div id="cost-estimate"></div>
+      <div id="weather-risk"></div>
     </div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="weather.js"></script>
+  <script src="holo.js"></script>
+  <!-- vendor/deckgl/deckgl.min.js (2 MB) is loaded on first use of the 3D view -->
   <script src="app.js"></script>
 </body>
 </html>

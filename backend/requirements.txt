@@ -1,4 +1,15 @@
+# Core dependencies — installs fast, no GPU/CUDA packages, everything the
+# API needs except the /overlaps/semantic endpoint.
+#
+# huggingface_hub alone (no sentence-transformers) is enough for the
+# /recommend endpoint's Hugging Face LLM path in backend/agent/llm_hf.py —
+# it just calls a hosted model over HTTP, no local model weights.
 fastapi>=0.115
 uvicorn[standard]>=0.30
 pydantic>=2.7
 openpyxl>=3.1
+huggingface_hub>=0.24
+
+# For /overlaps/semantic (local sentence-transformer embeddings), install
+# backend/requirements-semantic.txt separately — see its header comment
+# before running it, especially on Linux.

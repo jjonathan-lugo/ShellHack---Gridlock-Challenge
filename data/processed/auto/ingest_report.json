@@ -1,0 +1,160 @@
+{
+ "projects": {
+  "desc": 44,
+  "gpc": 138,
+  "total": 182
+ },
+ "located": 172,
+ "location_confidence": {
+  "none": 10,
+  "low": 113,
+  "medium": 9,
+  "high": 50
+ },
+ "overlaps": 74,
+ "overlaps_by_confidence": {
+  "none": 0,
+  "low": 74,
+  "medium": 0,
+  "high": 0
+ },
+ "vs_curated_spreadsheet": {
+  "curated_inconsistencies": [
+   {
+    "station": "MCINTOSH",
+    "spread_mi": 0.41,
+    "entries": [
+     {
+      "project_id": "GPC_2",
+      "lat": 32.352116,
+      "lon": -81.175112
+     },
+     {
+      "project_id": "GPC_3",
+      "lat": 32.352116,
+      "lon": -81.182105
+     }
+    ]
+   }
+  ],
+  "curated_projects_found": 10,
+  "curated_projects_total": 10,
+  "project_mapping": {
+   "DESC_1": "DESC-6809E",
+   "DESC_2": "DESC-6810A",
+   "DESC_3": "DESC-06367D-G",
+   "DESC_4": "DESC-6807B",
+   "DESC_5": "DESC-6808S",
+   "GPC_1": "GPC-20793",
+   "GPC_2": "GPC-20277",
+   "GPC_3": "GPC-20065",
+   "GPC_4": "GPC-18492",
+   "GPC_5": "GPC-11821"
+  },
+  "points_compared": 15,
+  "median_point_error_mi": 0.0,
+  "points_within_1_mi": 13,
+  "point_errors": [
+   {
+    "curated": "Stevens Creek Sub",
+    "auto": "Stevens Creek",
+    "error_mi": 0.13,
+    "confidence": "low"
+   },
+   {
+    "curated": "Thurmond Sub",
+    "auto": "Thurmond",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "Jasper Sub",
+    "auto": "Jasper",
+    "error_mi": 0.11,
+    "confidence": "high"
+   },
+   {
+    "curated": "Okatie Sub",
+    "auto": "Okatie",
+    "error_mi": 5.76,
+    "confidence": "low"
+   },
+   {
+    "curated": "Queensboro Sub",
+    "auto": "Queensboro",
+    "error_mi": 0.0,
+    "confidence": "medium"
+   },
+   {
+    "curated": "Okatie Sub",
+    "auto": "Okatie",
+    "error_mi": 6.25,
+    "confidence": "low"
+   },
+   {
+    "curated": "Bluffton Sub",
+    "auto": "Bluffton",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "EVANS PRIMARY",
+    "auto": "EVANS PRIMARY",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "MCINTOSH",
+    "auto": "MCINTOSH",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "GOSHEN",
+    "auto": "GOSHEN",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "MCINTOSH",
+    "auto": "MCINTOSH",
+    "error_mi": 0.41,
+    "confidence": "high"
+   },
+   {
+    "curated": "Mitchell Substation",
+    "auto": "MITCHELL",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "North Tifton Substation",
+    "auto": "NORTH TIFTON",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "JESUP",
+    "auto": "JESUP",
+    "error_mi": 0.0,
+    "confidence": "high"
+   },
+   {
+    "curated": "LUDOWICI PRIMARY",
+    "auto": "LUDOWICI PRIMARY",
+    "error_mi": 0.0,
+    "confidence": "high"
+   }
+  ],
+  "curated_overlaps_recovered": [
+   "OVL_1",
+   "OVL_2",
+   "OVL_3",
+   "OVL_4",
+   "OVL_5",
+   "OVL_6"
+  ],
+  "curated_overlaps_missed": []
+ },
+ "written": true
+}

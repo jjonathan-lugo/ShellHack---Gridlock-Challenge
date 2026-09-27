@@ -1,0 +1,22 @@
+# Optional — only needed for GET /overlaps/semantic (local sentence-transformer
+# embeddings). Everything else in the app runs without this file.
+#
+# sentence-transformers depends on PyTorch, and a plain `pip install torch`
+# on LINUX pulls the full CUDA/GPU toolkit as dependencies (several GB:
+# nvidia-cudnn, nvidia-cusparselt, nvidia-nccl, etc.) even on a machine with
+# no GPU. On macOS this doesn't happen — those packages carry a
+# "platform_system == Linux" marker and are skipped automatically.
+#
+# On macOS:
+#   pip install -r backend/requirements-semantic.txt        # just works
+#
+# On Linux (or if you hit the CUDA-download problem anywhere):
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+#   pip install -r backend/requirements-semantic.txt        # reuses the CPU torch already installed
+#
+# Also needs outbound access to huggingface.co to download the model
+# (~90MB) on first use — some locked-down networks (sandboxed VMs,
+# corporate proxies) block it. If pip or the app hangs/fails reaching
+# huggingface.co specifically, that network can't run this feature; try
+# from an unrestricted connection instead.
+sentence-transformers>=2.7
