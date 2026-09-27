@@ -6,6 +6,12 @@ future construction plans and flags where their planned work overlaps geographic
 
 Built for the Sperry Tech "Gridlock" challenge at ShellHacks 2026.
 
+**Live demo:** https://jjonathan-lugo.github.io/ShellHack---Gridlock-Challenge/ — the full
+map, both datasets, weather risk and the 3D view, running as a static site on GitHub Pages.
+The public demo has no backend, so its AI panel shows the verified template; live AI drafts
+(Llama 3.1 via Hugging Face, with the fact-check) run when you start the app locally with
+`./run-app.sh` and a Hugging Face token (see below).
+
 ## Quick start
 
 There are two working UIs. Both show the same data and the same numbers.

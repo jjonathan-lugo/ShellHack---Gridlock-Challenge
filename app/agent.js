@@ -129,7 +129,7 @@
   // -> { recommendation, source, guard, model, llm_unavailable_reason, origin }
   // origin: "backend" | "offline". Never throws: falls back to the template.
   async function getRecommendation(base, overlap, dataset) {
-    if (await backendUp(base)) {
+    if (base && (await backendUp(base))) {
       try {
         const q = new URLSearchParams({ project_id_a: overlap.project_id_a, project_id_b: overlap.project_id_b, dataset: dataset || "curated" });
         const res = await fetch(`${base}/recommend?${q}`);
@@ -138,7 +138,7 @@
         /* fall through to the offline template */
       }
     }
-    return { recommendation: templateRecommendation(overlap), source: "template", guard: null, origin: "offline" };
+    return { recommendation: templateRecommendation(overlap), source: "template", guard: null, origin: base ? "offline" : "hosted" };
   }
 
   // How to label a result for a human: { tone, title, detail }.
@@ -154,6 +154,8 @@
       return { tone: "warn", title: "AI draft rejected · verified template shown", detail: `${model} misstated the distance (expected ${g.expected} mi), so its draft was blocked instead of reaching a planner.` };
     if (r.source === "template_after_failed_guard")
       return { tone: "warn", title: "AI unavailable · template shown", detail: `The model call failed${g.error ? ` (${g.error.split(":")[0]})` : ""}, so the deterministic template is shown.` };
+    if (r.origin === "hosted")
+      return { tone: "muted", title: "Template · public demo", detail: "Live AI drafts (Llama 3.1 via Hugging Face, with the fact-check) run when the app is started locally with a Hugging Face token; see the README. This is the same verified template the AI falls back to." };
     if (r.origin === "offline")
       return { tone: "muted", title: "Template · AI backend not running", detail: "Start ./run-app.sh (it starts the backend) with HF_TOKEN set for AI drafts." };
     return { tone: "muted", title: "Template · no HF_TOKEN", detail: "Set HF_TOKEN before ./run-app.sh for AI drafts; this is the deterministic template." };

@@ -246,7 +246,13 @@ function renderPanels() {
 // running, shows the same deterministic template computed in the browser.
 
 const AG = window.GridlockAgent;
-const API_BASE = AG.apiBase(`${location.protocol}//${location.hostname || "localhost"}:${Number(location.port || 80) + 1}`);
+// Locally, run-app.sh starts the backend on this page's port + 1. On a public
+// host (e.g. GitHub Pages) there's no backend unless ?api=... points at one, so
+// the panel shows the verified template straight away instead of probing.
+const IS_LOCAL = ["localhost", "127.0.0.1", "::1", "[::1]", ""].includes(location.hostname);
+const API_BASE = AG.apiBase(
+  IS_LOCAL ? `${location.protocol}//${location.hostname || "localhost"}:${Number(location.port || 80) + 1}` : null
+);
 const agentResults = new Map(); // overlap_id -> "pending" | result
 
 function escapeHtml(s) {
