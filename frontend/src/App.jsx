@@ -4,6 +4,7 @@ import OverlapPanel from "./components/OverlapPanel";
 import ProjectDetail from "./components/ProjectDetail";
 import CostEstimate from "./components/CostEstimate";
 import WeatherRisk from "./components/WeatherRisk";
+import AgentRecommendation from "./components/AgentRecommendation";
 import { autoAvailable, indexProjects, loadData } from "./lib/data";
 import W, { loadClimatology, projectRiskLevels } from "./lib/weather";
 
@@ -252,6 +253,8 @@ export default function App() {
         {selected && <ProjectDetail overlap={selected} byId={byId} />}
 
         <CostEstimate overlap={selected || topOverlap} byId={byId} />
+
+        <AgentRecommendation overlap={shown} dataset={dataset} />
 
         <WeatherRisk
           overlap={shown}

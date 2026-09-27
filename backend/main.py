@@ -106,8 +106,9 @@ def get_overlaps_semantic():
     return {"overlaps": enriched, "near_misses": near_misses}
 
 
-def _find_overlap(project_id_a: str, project_id_b: str) -> dict:
-    a, b = _split_utilities(_load_projects())
+def _find_overlap(project_id_a: str, project_id_b: str, dataset: str = "curated") -> dict:
+    projects = [p for p in _load_projects(dataset) if p.get("lat_center") is not None]
+    a, b = _split_utilities(projects)
     ranked = build_ranked_overlaps(a, b)
     match = next(
         (
@@ -139,39 +140,56 @@ def get_estimate(project_id_a: str, project_id_b: str):
     }
 
 
+# LLM answers are slow (seconds) and the free Hugging Face tier is rate
+# limited, so each pair is asked once per server run. Only clean outcomes are
+# cached — a transport error is retried on the next request.
+_RECOMMEND_CACHE: dict[tuple, dict] = {}
+
+
 @app.get("/recommend")
-def get_recommendation(project_id_a: str, project_id_b: str, use_llm: bool = True):
+def get_recommendation(project_id_a: str, project_id_b: str, use_llm: bool = True, dataset: str = "curated"):
     """Drafts a plain-English coordination recommendation for one flagged overlap.
 
     Tries a Hugging Face-hosted LLM when `use_llm` is true and HF_TOKEN is set,
     with a hallucination guard on the distance figure; otherwise (or if the
     model call fails) returns the deterministic offline template. The response's
-    `source` field says which path produced it, so a demo never breaks just
-    because a token is missing or an endpoint is cold.
+    `source` and `guard` fields say which path produced it and what the
+    fact-check caught, so a demo never breaks just because a token is missing
+    or an endpoint is cold.
 
     This is a recommender only: per the team's own notes, final coordination
     decisions rest with the utilities' planners.
     """
     from backend.agent.recommend import recommend
 
-    match = _find_overlap(project_id_a, project_id_b)
+    key = (dataset, project_id_a, project_id_b, use_llm)
+    if key in _RECOMMEND_CACHE:
+        return _RECOMMEND_CACHE[key]
+
+    match = _find_overlap(project_id_a, project_id_b, dataset)
 
     call_llm = None
     llm_unavailable_reason = None
+    model = None
     if use_llm:
         try:
-            from backend.agent.llm_hf import make_hf_llm_call
+            from backend.agent.llm_hf import DEFAULT_MODEL, make_hf_llm_call
 
             call_llm = make_hf_llm_call()
+            model = DEFAULT_MODEL
         except RuntimeError as e:
             llm_unavailable_reason = str(e)
 
     result = recommend(match, call_llm)
-    return {
+    payload = {
         "overlap": match,
         **result,
+        "model": model,
         "llm_unavailable_reason": llm_unavailable_reason,
     }
+    if not (result.get("guard") or {}).get("error"):
+        _RECOMMEND_CACHE[key] = payload
+    return payload
 
 
 WEATHER_CACHE = DATA_DIR / "weather_climatology.json"

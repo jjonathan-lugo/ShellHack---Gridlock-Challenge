@@ -53,6 +53,8 @@ src/
 │   ├── ProjectDetail.jsx     selected-pair detail card
 │   ├── CostEstimate.jsx      bonus cost/impact estimate
 │   ├── WeatherRisk.jsx       build-window weather risk for the selected pair (add-on)
+│   ├── AgentRecommendation.jsx  AI coordination recommendation + fact-check label (add-on;
+│   │                         uses ../app/agent.js; backend at VITE_API_BASE or :8001)
 │   └── HoloView.jsx          3D holographic deck.gl view, lazy-loaded (add-on)
 ├── lib/
 │   ├── data.js               loading + normalization + ranking

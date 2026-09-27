@@ -236,7 +236,50 @@ function selectOverlap(idx, { zoom }) {
 function renderPanels() {
   const o = state.ranked[state.selectedIdx];
   renderCostEstimate(o, state.byId, state.selectedIdx === 0);
+  renderAgent(o);
   renderWeather(o);
+}
+
+// ---- AI coordination recommendation (add-ons #3-#5) ----
+// Asks the backend (started by run-app.sh on this page's port + 1) for a
+// Hugging Face draft checked by the hallucination guard; if the backend isn't
+// running, shows the same deterministic template computed in the browser.
+
+const AG = window.GridlockAgent;
+const API_BASE = AG.apiBase(`${location.protocol}//${location.hostname || "localhost"}:${Number(location.port || 80) + 1}`);
+const agentResults = new Map(); // overlap_id -> "pending" | result
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function renderAgent(o) {
+  const box = document.getElementById("ai-recommend");
+  if (!o) return;
+  const head = `<h2>Add-on: AI Coordination Recommendation</h2>`;
+  const r = agentResults.get(o.overlap_id);
+  if (!r) {
+    agentResults.set(o.overlap_id, "pending");
+    AG.getRecommendation(API_BASE, o, DATASET).then((res) => {
+      agentResults.set(o.overlap_id, res);
+      if (state.ranked[state.selectedIdx] === o) renderAgent(o);
+    });
+  }
+  if (!r || r === "pending") {
+    box.innerHTML = `${head}<div class="cost-box wx-status">Asking the coordination agent…</div>`;
+    return;
+  }
+  const d = AG.describe(r);
+  const rejected = (r.guard && r.guard.rejected_drafts) || [];
+  box.innerHTML = `${head}
+    <div class="cost-box ai-box">
+      <span class="ai-badge ai-${d.tone}">${escapeHtml(d.title)}</span>
+      <p class="ai-text">${escapeHtml(r.recommendation)}</p>
+      <div class="ai-detail">${escapeHtml(d.detail)}</div>
+      ${rejected.length ? `<details class="ai-rejected"><summary>See the draft the fact-check blocked</summary>
+        ${rejected.map((t, i) => `<div class="ai-draft-label">${AG.draftLabel(i)}</div><blockquote>${escapeHtml(t)}</blockquote>`).join("")}</details>` : ""}
+      <div class="note">Recommends only: the utilities' planners make the final call.</div>
+    </div>`;
 }
 
 // ---- Weather risk (add-on) ----

@@ -123,13 +123,19 @@ def recommend(
     call_llm: Optional[LLMCall] = None,
     max_retries: int = 1,
 ) -> dict:
-    """Return {"recommendation": str, "source": "llm"|"template"|"template_after_failed_guard"}.
+    """Return {"recommendation", "source", "guard"}.
 
-    With no `call_llm`, returns the deterministic template. With one, tries the
-    LLM and verifies its distance figure before trusting it.
+    source: "llm" (a draft that passed the fact-check), "template" (no LLM
+    configured), or "template_after_failed_guard" (the LLM failed or never
+    produced a draft with the right distance).
+
+    guard: None in template mode; otherwise what the fact-check did —
+    {"checked": "distance", "expected": "5.65", "rejected_drafts": [...],
+     "error": str | None} — so a UI can show a hallucination being caught
+    (and, when a retry fixes it, the agent correcting itself).
     """
     if call_llm is None:
-        return {"recommendation": template_recommendation(overlap), "source": "template"}
+        return {"recommendation": template_recommendation(overlap), "source": "template", "guard": None}
 
     prompt = PROMPT_TEMPLATE.format(
         name_a=overlap.get("project_name_a"),
@@ -140,18 +146,27 @@ def recommend(
         tier_label=overlap.get("tier_label") or classify_tier(overlap["distance_mi"]).label,
         time_gap_days=overlap.get("time_gap_days"),
     )
+    guard = {"checked": "distance", "expected": str(overlap.get("distance_mi")), "rejected_drafts": [], "error": None}
 
-    try:
-        draft = call_llm(prompt)
-    except Exception:
-        # Any transport/model failure falls back rather than erroring out.
+    def fallback():
         return {
             "recommendation": template_recommendation(overlap),
             "source": "template_after_failed_guard",
+            "guard": guard,
         }
 
+    try:
+        draft = call_llm(prompt)
+    except Exception as e:
+        # Any transport/model failure falls back rather than erroring out.
+        guard["error"] = f"{type(e).__name__}: {e}"[:300]
+        return fallback()
+
     attempts = 0
-    while not _distance_is_faithful(draft, overlap) and attempts < max_retries:
+    while not _distance_is_faithful(draft, overlap):
+        guard["rejected_drafts"].append(draft.strip())
+        if attempts >= max_retries:
+            return fallback()
         attempts += 1
         try:
             draft = call_llm(
@@ -159,13 +174,8 @@ def recommend(
                 + "\n\nYour previous draft misstated or omitted the distance. Redo it, "
                 "using the exact figure given above."
             )
-        except Exception:
-            break
+        except Exception as e:
+            guard["error"] = f"{type(e).__name__}: {e}"[:300]
+            return fallback()
 
-    if not _distance_is_faithful(draft, overlap):
-        return {
-            "recommendation": template_recommendation(overlap),
-            "source": "template_after_failed_guard",
-        }
-
-    return {"recommendation": draft.strip(), "source": "llm"}
+    return {"recommendation": draft.strip(), "source": "llm", "guard": guard}

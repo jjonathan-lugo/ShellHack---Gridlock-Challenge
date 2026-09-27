@@ -30,6 +30,13 @@ vendored in `app/vendor/`, so once the cache is complete the demo needs no CDN, 
 and no network — only the map background tiles require internet (everything else still
 renders without them).
 
+It also starts the backend on port 8001 (log: `data/cache/backend.log`) for the **AI
+coordination recommendation** panel, if `pip3 install -r backend/requirements.txt` has been
+run. For the Hugging Face model, set `HF_TOKEN` first — `export HF_TOKEN=hf_...`, or put
+`HF_TOKEN=hf_...` in a `.env` file in the repo root (git-ignored; `run-app.sh` reads it).
+Without the backend or a token, the panel shows the same deterministic template computed in
+the browser, so it always has an answer.
+
 In the header: **Weather risk** colors each project by build-window weather risk, and
 **3D holographic** switches to the deck.gl view. Once you've run the PDF ingest (below),
 a **Data** menu appears to switch between the curated spreadsheet and the auto-extracted dataset.
@@ -136,6 +143,7 @@ gridlock-challenge/
 │   ├── style.css
 │   ├── app.js
 │   ├── weather.js                    # weather-risk logic (shared with the React app)
+│   ├── agent.js                      # AI recommendation panel client + offline template (shared)
 │   ├── holo.js                       # 3D deck.gl scene builder (shared with the React app)
 │   └── vendor/                       # Leaflet + deck.gl, vendored so no CDN is needed
 │
@@ -234,6 +242,14 @@ The agent is a recommender, not a decision-maker — every output ends by deferr
 utilities' own planners. A **hallucination guard** verifies that the LLM's stated distance
 matches the raw record, retries once if not, and falls back to the template rather than
 shipping an unverified number. That behavior is covered by tests.
+
+**Both UIs show it** in an "AI Coordination Recommendation" panel for the selected overlap
+(`app/agent.js`, shared by the React app's `AgentRecommendation.jsx`), labeled by what the
+guard did: *AI draft · fact-checked*, *AI draft · corrected itself* (its first draft was
+rejected and the retry was right), *AI draft rejected · verified template shown* (with the
+blocked draft viewable, struck through), or *Template* when no model is available. Answers are
+cached per pair on the backend, since the free Hugging Face tier is slow and rate-limited. The
+browser's offline template is tested to match the Python one word for word on every overlap.
 
 ## Add-ons
 
@@ -339,12 +355,12 @@ Everything in the tree is implemented — no stubs or placeholder files.
 | `frontend/` React app | Working — `npm run build` clean, verified rendering headlessly |
 | `backend/overlap/` | Working — matches the spreadsheet exactly, covered by tests |
 | `backend/estimate/` | Working — tier-aware, covered by tests |
-| `backend/agent/` | Working — template path and hallucination guard covered by tests; **live HF model call verified against the real Inference API** |
+| `backend/agent/` | Working — template path and hallucination guard covered by tests; **live HF model call verified against the real Inference API**; shown in both UIs (headless-browser checked with a scripted model: pass, self-correction, and blocked draft) |
 | `backend/match/` | Working — **verified against the live Hub** (`/overlaps/semantic` downloads and runs `all-MiniLM-L6-v2` for real) |
 | Weather risk (`backend/weather/`, `app/weather.js`) | Working — logic, Python↔JS parity, API, rate-limit pacing/resume, and both UIs' on-click fetch covered by tests / headless renders; **a complete live Open-Meteo download not yet finished** (the first attempt hit the free-tier limit, which is what the pacing now handles) |
 | 3D view (`app/holo.js`, `HoloView.jsx`) | Working — renders and animates in both UIs (headless WebGL), scene builder covered by tests |
 | PDF ingest (`backend/ingest/`) | Working — **run live against OpenStreetMap**: 172 of 182 projects located, all 6 of the spreadsheet's overlaps recovered, median point error 0.0 mi. Covered by tests, including a replay of the cached live data |
-| Test suite | 126 passed, 1 skipped |
+| Test suite | 132 passed, 1 skipped |
 
 Everything has been run end to end, including the Hugging Face pieces, with a real
 `HF_TOKEN` on an unrestricted network. (They were originally built and unit-tested in a
