@@ -1,0 +1,8 @@
+/* Stub — port the dark theme / grid layout from app/style.css when this
+   scaffold gets wired up. */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  height: 100vh;
+}

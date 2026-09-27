@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gridlock — Utility Coordination Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Gridlock</h1>
+      <div class="subtitle">DESC &amp; Georgia Power planned-construction overlap</div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#1f6feb"></span>Dominion Energy South Carolina</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#e8590c"></span>Georgia Power</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#f2c744"></span>Flagged overlap (&lt;25 mi)</span>
+      </div>
+    </header>
+    <div id="map"></div>
+    <div id="panel">
+      <h2>Top Coordination Opportunities</h2>
+      <div id="overlap-list"></div>
+      <div id="cost-estimate"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
